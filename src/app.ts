@@ -2,7 +2,6 @@
  * app.ts
  */
 
-// import * as api from 'amazon-product-api'
 import {
   AmazonProductAdvertising,
 } from './amazon-product-advertising-api'
@@ -11,24 +10,6 @@ import {
 } from './config'
 
 const client = new AmazonProductAdvertising(credentials)
-
-// async function itemSearch() {
-//   try {
-//     const results = await client.itemSearch({
-//       director: 'Quentin Tarantino',
-//       actor: 'Samuel L. Jackson',
-//       searchIndex: 'DVD',
-//       audienceRating: 'R',
-//       responseGroup: 'ItemAttributes, Offers, Images',
-//     })
-//     console.log(JSON.stringify(results[0], null, 2))
-//   } catch(err) {
-//     console.log(err)
-//     console.log(err[0].Error[0])
-//     // console.log(err.Error[0].Code)
-//     // console.log(err.Error[0].Message)
-//   }
-// }
 
 async function browseNodeLookup(browseNodeId: string) {
   const results = await client.browseNodeLookup({

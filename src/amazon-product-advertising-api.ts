@@ -1,18 +1,31 @@
 import * as api from 'amazon-product-api'
 
 
-interface IQuery {
-  func: string,
-  query: any,
-  resolve: (result) => void,
-  reject: (error) => void,
+/**
+ * Credentials
+ */
+export interface ICredentials {
+  /**
+   * Access Key ID
+   */
+  awsId: string
+
+  /**
+   * Secret Key
+   */
+  awsSecret: string
+
+  /**
+   * Store ID
+   */
+  awsTag: string
 }
 
 /**
  * ItemSearch Query
  * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/ItemSearch.html
  */
-export interface IitemSearchQuery {
+export interface IItemSearchQuery {
   /**
    * Actor name associated with the item. You can enter all or part of the name.
    * Type: String
@@ -49,14 +62,14 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: Available
    */
-  Availability?: string
+  availability?: string
 
   /**
    * Brand name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Brand?: string
+  brand?: string
 
   /**
    * Browse nodes are numbers that identify product categories. For example, the browse node for Literature & Fiction is 17, while the browse node for Outdoors & Nature is 290060.
@@ -65,14 +78,14 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: Positive integer
    */
-  BrowseNode?: string
+  browseNode?: string
 
   /**
    * Composer name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Composer?: string
+  composer?: string
 
   /**
    * The Condition parameter filters offers by condition type. By default, Condition equals New. When the Availability parameter is set to Available, the Condition parameter cannot be set to New.
@@ -82,21 +95,21 @@ export interface IitemSearchQuery {
    * Default: New
    * Valid values: New | Used | Collectible | Refurbished | All
    */
-  Condition?: string
+  condition?: string
 
   /**
    * Conductor name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Conductor?: string
+  conductor?: string
 
   /**
    * Director name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Director?: string
+  director?: string
 
   /**
    * Returns the reviews summary URL.
@@ -104,7 +117,7 @@ export interface IitemSearchQuery {
    * Default: True
    * Valid values: True | False
    */
-  IncludeReviewsSummary?: boolean
+  includeReviewsSummary?: boolean
 
   /**
    * Returns a specific page of items from the available search results. Up to ten items are returned per page.
@@ -114,7 +127,7 @@ export interface IitemSearchQuery {
    * Type: String
    * Default: None
    */
-  ItemPage?: string
+  itemPage?: string
 
   /**
    * A word or phrase that describes an item, including author, artist, description, manufacturer, title, and so on.
@@ -123,14 +136,14 @@ export interface IitemSearchQuery {
    * Type: String
    * Default: None
    */
-  Keywords?: string
+  keywords?: string
 
   /**
    * Manufacturer name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Manufacturer?: string
+  manufacturer?: string
 
   /**
    * Specifies the maximum item price in the response. Prices appear in the lowest currency denomination. For example, 3241 is $32.41.
@@ -139,7 +152,7 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: Positive integer
    */
-  MaximumPrice?: string
+  maximumPrice?: string
 
   /**
    * Specifies the minimum percentage off the item price.
@@ -147,14 +160,14 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: Positive integer
    */
-  MinPercentageOff?: string
+  minPercentageOff?: string
 
   /**
    * Orchestra name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Orchestra?: string
+  orchestra?: string
 
   /**
    * Performs a book search with a complex query string. The parameter can be used only when SearchIndex is set to Books.
@@ -162,14 +175,14 @@ export interface IitemSearchQuery {
    * Type: String
    * Default: None
    */
-  Power?: string
+  power?: string
 
   /**
    * Publisher name associated with the item. You can enter all or part of the name.
    * Type: String
    * Default: None
    */
-  Publisher?: string
+  publisher?: string
 
   /**
    * Returns a specific page of related items from the available search results. Up to ten items are returned per page. This parameter can be used with the RelatedItems response group.
@@ -177,7 +190,7 @@ export interface IitemSearchQuery {
    * Type: String
    * Default: None
    */
-  RelatedItemPage?: string
+  relatedItemPage?: string
 
   /**
    * Returns the relationship between associated items. Example values include Episode, Season, and Tracks.
@@ -186,7 +199,7 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: See Related Items.
    */
-  RelationshipType?: string
+  relationshipType?: string
 
   /**
    * The product category to search. Some ItemSearch parameters are valid only with specific values of SearchIndex.
@@ -195,7 +208,7 @@ export interface IitemSearchQuery {
    * Valid values: A search index, such as Apparel, Beauty, Blended, Books, and so on.
    * For a complete list of search indices, see Locale Reference for the Product Advertising API.
    */
-  SearchIndex: string
+  searchIndex: string
   
   /**
    * The way in which items in the response are ordered.
@@ -204,7 +217,7 @@ export interface IitemSearchQuery {
    * Valid values: Values vary by search index.
    * For a list of valid values, see Locale Reference for the Product Advertising API.
    */
-  Sort?: string
+  sort?: string
 
   /**
    * Title associated with the item. You can enter all or part of the title. Title searches are a subset of Keyword searches. Use a Keywords search if a Title search does not return the items you want.
@@ -212,7 +225,7 @@ export interface IitemSearchQuery {
    * Type: String
    * Default: None
    */
-  Title?: string
+  title?: string
 
   /**
    * By default, reviews are truncated to 1000 characters. Choose a value to specify a length. To return the entire review, use 0 .
@@ -220,7 +233,7 @@ export interface IitemSearchQuery {
    * Default: 1000
    * Constraints: Must be a positive integer or 0.
    */
-  TruncateReviewsAt?: number
+  truncateReviewsAt?: number
 
   /**
    * Returns a specific page of variations. For example, set VariationPage to 2 to return offers 11 to 20 . The total number of pages appears in the TotalPages element.
@@ -228,7 +241,7 @@ export interface IitemSearchQuery {
    * Default: None
    * Valid values: Positive integer
    */
-  VariationPage?: string
+  variationPage?: string
 
   /**
    * Specifies the types of values to return. Separate multiple response groups with commas.
@@ -236,9 +249,125 @@ export interface IitemSearchQuery {
    * Default: Small
    * Valid values: See Response Groups.
    */
-  ResponseGroup?: string
+  responseGroup?: string
 }
 
+/**
+ * BrowseNodeLookup Query
+ * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/BrowseNodeLookup.html
+ */
+export interface IBrowseNodeLookupQuery {
+  /**
+   * A positive integer assigned by Amazon that uniquely identifies a product category.
+   * Type: String
+   * Default: None
+   * Valid Values:A positive integer. For a list of valid browse node IDs, see [Locale Reference for the Product Advertising API](http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/localevalues.html).
+   */
+  browseNodeId: string
+
+  /**
+   * Specifies the types of values to return. You can specify multiple response groups in one request by separating them with commas.
+   * Default: BrowseNodeInfo
+   * Valid Values: MostGifted | NewReleases | MostWishedFor | TopSellers
+   */
+  responseGroup: string
+}
+
+/**
+ * ItemLookup query
+ * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/ItemLookup.html
+ */
+export interface IItemLookupQuery {
+  /**
+   * Specifies an item's condition. If Condition is set to "All", a separate set of responses is returned for each valid value of Condition. The default value is "New" (not "All"). So, if your request does not return results, consider setting the value to "All". When the value is "New", the ItemLookup availability parameter cannot be set to "Available". Amazon only sells items that are "New".
+   * Type: String
+   * Default: New
+   * Valid Values: Used | Collectible | Refurbished, All
+   */
+  condition?: string
+
+  /**
+   * Type of item identifier used to look up an item. All IdTypes except ASINx require a SearchIndex to be specified.
+   * Type: String
+   * Default: ASIN
+   * Valid Values: SKU | UPC | EAN | ISBN (US only, when search index is Books). UPC is not valid in the CA locale.
+   */
+  idType?: string
+
+  /**
+   * When set to true, returns the reviews summary within the Reviews iframe.
+   * Type: Boolean
+   * Default: True
+   * Valid Values: True | False
+   */
+  includeReviewsSummary?: boolean
+
+  /**
+   * One or more (up to ten) positive integers that uniquely identify an item. The meaning of the number is specified by IdType. That is, if IdType is ASIN, the ItemId value is an ASIN. If ItemIdis an ASIN, a search index cannot be specified in the request.
+   * Type: String
+   * Default: None
+   * Constraints: Must be a valid item ID. For more than one ID, use a comma-separated list of up to ten IDs.
+   */
+  itemId: string
+
+  /**
+   * An optional parameter you can use to filter search results and offer listings to only include items sold by Amazon. By default, the API will return items sold by various merchants including Amazon. Enter Amazon if you only want to see items sold by Amazon in the response.
+   * Type: String
+   * Valid Values: Amazon
+   */
+  merchantId?: string
+
+  /**
+   * This optional parameter is only valid when the RelatedItems response group is used. Each ItemLookup request can return, at most, ten related items. The RelatedItemPage value specifies the set of ten related items to return. A value of 2, for example, returns the second set of ten related items
+   */
+  relatedItemPage?: string
+
+  /**
+   * This parameter is required when the RelatedItems response group is used. The type of related item returned is specified by the RelationshipType parameter. Sample values include Episode, Season, and Tracks. For a complete list of types, see Relationship Types.
+   * Required when RelatedItems response group is used.
+   */
+  relationshipType?: string
+  
+  /**
+   * The product category to search.
+   * Type: String
+   * Default: None
+   * Valid Values: A search index, for example, Apparel, Beauty, Blended, Books, and so forth. For a complete of search indices, see Locale Reference for the Product Advertising API.
+   * Constraint: If ItemIdis an ASIN, a search index cannot be specified in the request. Required for non-ASIN ItemIds.
+   */
+  searchIndex?: string
+
+  /**
+   * By default, reviews are truncated to 1000 characters within the Reviews iframe. To specify a different length, enter the value. To return complete reviews, specify 0.
+   * Type: Integer
+   * Default: 1000
+   * Constraints: Must be a positive integer or 0 (returns entire review)
+   */
+  truncateReviewsAt?: number
+
+  /**
+   * Page number of variations returned by ItemLookup. By default, ItemLookup returns all variations. Use VariationPage to return a subsection of the response. There are 10 variations per page. To examine offers 11 through 20, for example, set VariationPage to 2.
+   * Type: String
+   * Default: All
+   * Valid Values: Integer between 1 and 150, inclusive
+   */
+  variationPage?: string
+
+  /**
+   * Specifies the types of values to return. You can specify multiple response groups in one request by separating them with commas.
+   * Type: String
+   * Default: Small
+   * Valid Values: Accessories | BrowseNodes | EditorialReview | Images | ItemAttributes | ItemIds | Large | Medium | OfferFull | Offers | PromotionSummary | OfferSummary| RelatedItems | Reviews | SalesRank | Similarities | Small | Tracks | VariationImages | Variations (US only) | VariationSummary
+   */
+  responseGroup?: string
+}
+
+interface IQuery {
+  func: string,
+  query: any,
+  resolve: (result) => void,
+  reject: (error) => void,
+}
 
 export class AmazonProductAdvertising {
   private _client: api.IAmazonProductClient
@@ -247,33 +376,35 @@ export class AmazonProductAdvertising {
   private _timerId: number = null
   private _interval: number = 1000
 
-  constructor({
-    awsId,
-    awsSecret,
-    awsTag,
-  }: {
-    awsId: string,
-    awsSecret: string,
-    awsTag: string,
-  }) {
-    this._client = api.createClient({
-      awsId,
-      awsSecret,
-      awsTag,
-    })
+  constructor(credentials: ICredentials) {
+    this._client = api.createClient(credentials)
   }
 
   /**
-   * Item search
+   * itemSearch
    * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/ItemSearch.html
-   * @param query Item search query
+   * @param query itemSearch query
    */
-  itemSearch(query: IitemSearchQuery): Promise<Object[]> {
+  itemSearch(query: IItemSearchQuery): Promise<Object[]> {
     return this._newPromise('itemSearch', query)
   }
 
-  browseNodeLookup(query: any): Promise<Object[]> {
+  /**
+   * browseNodeLookup
+   * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/BrowseNodeLookup.html
+   * @param query browseNodeLookup query
+   */
+  browseNodeLookup(query: IBrowseNodeLookupQuery): Promise<Object[]> {
     return this._newPromise('browseNodeLookup', query)
+  }
+
+  /**
+   * itemLookup
+   * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/ItemLookup.html
+   * @param query itemLookup query
+   */
+  itemLookup(query: IItemLookupQuery): Promise<Object[]> {
+    return this._newPromise('itemLookup', query)
   }
 
   start(interval: number) {
