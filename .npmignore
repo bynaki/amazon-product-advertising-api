@@ -6,9 +6,9 @@ src/
 *.swp
 npm-debug.log
 yarn-error.log
-config.ts
 .gitignore
 .npmignore
 gulpfile.js
 tsconfig.json
 yarn.lock
+config.*
