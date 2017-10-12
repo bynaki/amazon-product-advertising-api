@@ -2,14 +2,13 @@
   "name": "amazon-product-advertising-api",
   "version": "0.1.0",
   "description": "Node.js client for the Amazon Product Advertising API",
-  "main": "./build/app.js",
+  "main": "./build/amazon-product-advertising-api.js",
   "scripts": {
-    "start": "gulp build && node build/app.js",
+    "start": "gulp build && node build/example.js",
     "test": "gulp test",
     "build": "gulp build",
     "clear": "gulp clear",
-    "test.watch": "gulp test.watch",
-    "start.watch": "gulp start.watch"
+    "test.watch": "gulp test.watch"
   },
   "author": {
     "name": "bynaki",
@@ -19,7 +18,16 @@
     "type": "git",
     "url": "https://github.com/bynaki/amazon-product-advertising-api.git"
   },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "keywords": [
+    "node",
+    "amazon",
+    "amazon product advertising api"
+  ],
   "license": "MIT",
+  "typings": "./build/amazon-product-advertising-api.d.ts",
   "devDependencies": {
     "@types/amazon-product-api": "^0.0.31",
     "@types/chai": "^3.4.35",
@@ -42,7 +50,6 @@
     "typescript": "^2.2.1"
   },
   "dependencies": {
-    "amazon-product-api": "^0.4.4",
-    "debounce-promise": "^3.0.1"
+    "amazon-product-api": "^0.4.4"
   }
 }

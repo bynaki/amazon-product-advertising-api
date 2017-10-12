@@ -130,22 +130,3 @@ gulp.task('test', ['build'], () => {
 gulp.task('test.watch', ['test'], () => {
   gulp.watch('src/**/**', ['test'])
 })
-
-/**
- * start.watch
- */
-gulp.task('start.watch', ['build'], done => {
-  entryPoint((err, ep) => {
-    if(err) {
-      done(err)
-      return
-    }
-    const stream = nodemon({
-      script: ep,
-      ext: '*',
-      watch: ['src'],
-      tasks: ['build'],
-    })
-    done(err, stream)
-  })
-})

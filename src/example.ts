@@ -1,5 +1,5 @@
 /**
- * app.ts
+ * example
  */
 
 import {
