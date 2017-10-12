@@ -1,0 +1,14 @@
+node_modules/
+.vscode/
+playground/
+src/
+.DS_Store
+*.swp
+npm-debug.log
+yarn-error.log
+config.ts
+.gitignore
+.npmignore
+gulpfile.js
+tsconfig.json
+yarn.lock
