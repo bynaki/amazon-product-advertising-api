@@ -372,7 +372,6 @@ interface IQuery {
 export class AmazonProductAdvertising {
   private _client: api.IAmazonProductClient
   private _queries: IQuery[] = []
-  private _started: boolean = false
   private _timerId: number = null
   private _interval: number = 1000
 
@@ -409,7 +408,7 @@ export class AmazonProductAdvertising {
 
   start(interval: number) {
     this._interval = interval
-    if(!this._started) {
+    if(this._timerId === null) {
       this._process()
     }
   }
@@ -432,7 +431,7 @@ export class AmazonProductAdvertising {
   }
 
   private _process() {
-    this._started = true
+    this._timerId = null
     const query = this._queries[0]
     if(query) {
       this._client[query.func](query.query, (err, result) => {
@@ -451,10 +450,8 @@ export class AmazonProductAdvertising {
         }
         this._queries.shift()
         query.resolve(result)
-        setTimeout(this._process.bind(this), this._interval)
+        this._timerId = setTimeout(this._process.bind(this), this._interval)
       })
-    } else {
-      this._started = false
-    }
+    } 
   }
 }

@@ -45,4 +45,29 @@ describe('test', function() {
     expect(results).to.be.ok
     // console.log(JSON.stringify(results, null, 2))
   })
+
+  it('catch error', async () => {
+    try {
+      let results = await client.itemSearch({
+        keywords: 'lego',
+        searchIndex: 'Toys',
+        // responseGroup: 'ItemIds',
+        responseGroup: 'Foobar',
+      })
+      expect(true).to.be.not.ok
+    } catch(err) {
+      // console.log(JSON.stringify(err, null, 2))
+    }
+  })
+
+  it('after error, request again', async () => {
+    const results = await client.itemSearch({
+      director: 'Quentin Tarantino',
+      actor: 'Samuel L. Jackson',
+      searchIndex: 'DVD',
+      audienceRating: 'R',
+      responseGroup: 'ItemAttributes,Offers,Images',
+    })
+    expect(results).to.be.ok
+  })
 })
