@@ -46,6 +46,14 @@ describe('test', function() {
     // console.log(JSON.stringify(results, null, 2))
   })
 
+  it('similarityLookup', async () => {
+    const results = await client.similarityLookup({
+      itemId: 'B073QJNXL2',
+      responseGroup: 'Request,Small',
+    })
+    console.log(JSON.stringify(results, null, 2))
+  })
+
   it('catch error', async () => {
     try {
       let results = await client.itemSearch({

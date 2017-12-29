@@ -1,5 +1,3 @@
-import { create } from 'domain';
-
 var generateQueryString = require('./utils').generateQueryString,
     request = require('request'),
     parseXML = require('xml2js').parseString;

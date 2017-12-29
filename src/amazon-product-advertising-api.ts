@@ -1,3 +1,4 @@
+
 import * as api from './amazon-product-api'
 
 
@@ -362,6 +363,47 @@ export interface IItemLookupQuery {
   responseGroup?: string
 }
 
+export interface ISimilarityLookupQuery {
+  /**
+   * Specifies an item's condition. If Condition is set to “All”, a separate set of responses is returned for each valid value of Condition.
+   * Type: String
+   * Default: New
+   * Valid Values: All | Collectible | Refurbished | Used
+   */
+  condition?: string
+
+  /**
+   * Specifies the item you want to look up. An ItemId is an alphanumeric identifier assigned to an item. You can specify up to ten ItemIds separated by commas.
+   * Type: String
+   * Default: None
+   * Valid Values: ASIN
+   */
+  itemId: string
+
+  /**
+   * An optional parameter that can be used to filter search results and offer listings to only include items sold by Amazon. By default, Product Advertising API returns items sold by various merchants including Amazon. Enter "Amazon" to return only items sold by Amazon.
+   * Type: String
+   * Valid Values: Amazon
+   */
+  merchantId?: string
+
+  /**
+   * "Intersection" returns the intersection of items that are similar to all of the ASINs specified. "Random" returns the union of items that are similar to all of the ASINs specified. Only ten items are returned. So, if there are more than ten similar items found, a random selection from the group is returned. For this reason, running the same request multiple times can yield different results.
+   * Type: String
+   * Default: Intersection
+   * Valid Value:Random
+   */
+  similarityType?: string
+
+  /**
+   * Specifies the types of values to return. You can specify multiple response groups in one request by separating them with commas.
+   * Type: String
+   * Default: Request | Small
+   * Valid Values: Accessories | BrowseNodes | EditorialReview | Images | Large | ItemAttributes | ItemIds | Medium | Offers | OfferSummary | PromotionSummary | Reviews | SalesRank | Similarities | Small | Tracks | Variations | VariationSummary |
+   */
+  responseGroup?: string
+}
+
 interface IQuery {
   func: string,
   query: any,
@@ -370,7 +412,7 @@ interface IQuery {
 }
 
 export class AmazonProductAdvertising {
-  private _client: api.IAmazonProductClient
+  private _client
   private _queries: IQuery[] = []
   private _timerId: number = null
   private _interval: number = 1000
@@ -404,6 +446,15 @@ export class AmazonProductAdvertising {
    */
   itemLookup(query: IItemLookupQuery): Promise<Object[]> {
     return this._newPromise('itemLookup', query)
+  }
+
+  /**
+   * similarityLookup
+   * http://docs.aws.amazon.com/ko_kr/AWSECommerceService/latest/DG/SimilarityLookup.html
+   * @param query similarityLookup query
+   */
+  similarityLookup(query: ISimilarityLookupQuery): Promise<Object[]> {
+    return this._newPromise('similarityLookup', query)
   }
 
   start(interval: number) {

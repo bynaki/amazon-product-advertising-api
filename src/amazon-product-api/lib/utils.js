@@ -72,6 +72,14 @@ var formatQueryParams = function (query, method, credentials) {
       BrowseNodeId: '',
       ResponseGroup: 'BrowseNodeInfo'
     });
+  } else if(method === 'SimilarityLookup') {
+    // Default
+    params = setDefaultParams(params, {
+      Condition: 'New',
+      ItemId: 'None',
+      SimilarityType: 'Intersection',
+      ResponseGroup: 'Request,Small'
+    });
   }
 
 
