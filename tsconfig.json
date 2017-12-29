@@ -5,7 +5,8 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "outDir": "build",
-    "declaration": true
+    "declaration": true,
+    "allowJs": true
   },
   "include": [
     "src/**/**.ts"

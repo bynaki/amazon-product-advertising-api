@@ -116,14 +116,6 @@ ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-amazon-product-api@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/amazon-product-api/-/amazon-product-api-0.4.4.tgz#4e67203d5c15bfee70aaf83edc0f439215ba06bc"
-  dependencies:
-    es6-promise "^3.0.2"
-    request "^2.81.0"
-    xml2js "^0.4.17"
-
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"

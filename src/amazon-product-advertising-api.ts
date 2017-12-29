@@ -1,4 +1,4 @@
-import * as api from 'amazon-product-api'
+import * as api from './amazon-product-api'
 
 
 /**
